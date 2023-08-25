@@ -17,7 +17,7 @@ User.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true, 
     },
     // Define a username column
     username: {
@@ -48,10 +48,10 @@ User.init(
       },
     },
     sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'user',
+    timestamps: false, //Without timestamps: false, Sequelize will automatically add createdAt and updatedAt columns to your table.
+    freezeTableName: true, // Sequelize will pluralize the table name based on the model name.
+    underscored: true, //Sequelize will use camelCase for automatically generated fields.
+    modelName: 'user', // is more for internal reference and clarity, but it's good practice to include it.
   }
 );
 
