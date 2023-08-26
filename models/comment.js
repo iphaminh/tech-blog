@@ -44,4 +44,14 @@ Comment.init(
   }
 );
 
+// Define the relationship between Comment and User
+Comment.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
+// Define the relationship between Comment and Post
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id',
+});
+
 module.exports = Comment;
