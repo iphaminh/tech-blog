@@ -55,4 +55,17 @@ User.init(
   }
 );
 
+// Define the relationship between User and Post
+User.hasMany(Post, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+  });
+  
+  // Define the relationship between User and Comment
+  User.hasMany(Comment, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+  });
+  
+
 module.exports = User;
