@@ -1,4 +1,6 @@
 const sequelize = require('./config/connection');
+const exphbs = require('express-handlebars');
+
 
 // ... other server setup code ...
 
@@ -13,5 +15,8 @@ sequelize.authenticate()
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
 
 // ... rest of your server code ...
