@@ -41,4 +41,16 @@ Post.init(
   }
 );
 
+// Define the relationship between Post and User
+Post.belongsTo(User, {
+  foreignKey: 'user_id', //post still there if user got deleted
+});
+
+// Define the relationship between Post and Comment
+Post.hasMany(Comment, {
+  foreignKey: 'post_id',
+  onDelete: 'CASCADE' // post got deleted>>> comments got deleted it too
+});
+
+
 module.exports = Post;
