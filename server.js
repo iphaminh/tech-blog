@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars').engine;
 const session = require('express-session'); // For session management
 const SequelizeStore = require('connect-session-sequelize')(session.Store); // For storing sessions in the database
 
+
 // Initialize the Express app
 const app = express();
 
@@ -55,4 +56,8 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
 });
 
-// TODO: Add any additional server configurations or middleware here
+// Define a route for the root URL
+app.get('/', (req, res) => {
+  res.render('layouts/homepage');  // This assumes 'homepage.handlebars' is inside the 'layouts' folder
+});
+
