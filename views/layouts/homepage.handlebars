@@ -1,0 +1,11 @@
+<!-- homepage.handlebars -->
+
+{{!-- Loop through each post and display its content --}}
+{{#each posts}}
+  <div class="post">
+    <h2>{{this.title}}</h2>
+    <p>{{this.content}}</p>
+    <p>Posted By: {{this.user.username}}</p>
+    <p>on: {{this.createdAt}}</p>
+  </div>
+{{/each}}
