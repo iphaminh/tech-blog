@@ -2,6 +2,26 @@
 const router = require('express').Router(); // This sets up the router using Express.
 const { User } = require('../../models');   // This imports the User model from the models directory.
 
+// Render the login page
+router.get('/login', (req, res) => {
+    // If the user is already logged in, redirect to the homepage
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+    res.render('login');
+});
+
+// Render the signup page
+router.get('/signup', (req, res) => {
+    // If the user is already logged in, redirect to the homepage
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+    res.render('signup');
+});
+
 // Signup route
 router.post('/signup', async (req, res) => {
     try {
