@@ -1,0 +1,14 @@
+<!-- dashboard.handlebars -->
+
+<h1>Your Posts</h1>
+
+{{!-- Loop through each post created by the user --}}
+{{#each userPosts}}
+  <div class="user-post">
+    <h2>{{this.title}}</h2>
+    <p>{{this.content}}</p>
+    <p>Posted on: {{this.createdAt}}</p>
+    <button>Edit</button>
+    <button>Delete</button>
+  </div>
+{{/each}}
