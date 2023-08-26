@@ -4,6 +4,9 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 
+// Define the PORT
+const PORT = process.env.PORT || 3001;
+
 // Set up Handlebars as the templating engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -21,7 +24,7 @@ sequelize.authenticate()
 
 // Start the server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
 });
 
 // ... rest of your server code ...
