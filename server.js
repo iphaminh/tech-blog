@@ -1,11 +1,10 @@
 // Import necessary modules
 const express = require('express');
 const path = require('path');
-const sequelize = require('./config/connection');
+const { sequelize } = require('./models');  // Only import sequelize from models
 const exphbs = require('express-handlebars').engine;
 const session = require('express-session'); // For session management
 const SequelizeStore = require('connect-session-sequelize')(session.Store); // For storing sessions in the database
-
 
 // Initialize the Express app
 const app = express();
@@ -17,7 +16,6 @@ const PORT = process.env.PORT || 3001;
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
-
 
 // Middleware to parse JSON and urlencoded form data
 app.use(express.json());
@@ -40,10 +38,15 @@ const sess = {
 // Use the session middleware
 app.use(session(sess));
 
-// TODO: Import and use your routes here
-// Example:
-// const apiRoutes = require('./routes/apiRoutes');
-// app.use('/api', apiRoutes);
+// Import the routes
+const homeRoutes = require('./controllers/homeRoutes');
+const dashboardRoutes = require('./controllers/dashboardRoutes');
+// ... any other routes you might have
+
+// Use the routes
+app.use('/', homeRoutes);
+app.use('/dashboard', dashboardRoutes);
+// ... any other app.use() statements for other routes
 
 // Authenticate with the database
 sequelize.authenticate()
@@ -59,19 +62,4 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
 });
 
-// Define a route for the root URL
-app.get('/test', (req, res) => {
-  res.send('Test route is working!');
-});
-app.get('/', (req, res) => {
-  console.log("Root route accessed");
-  res.render('/homepage', (err, html) => {
-    if (err) {
-      console.error("Error rendering:", err);
-      res.status(500).send("Error rendering homepage");
-    } else {
-      res.send(html);
-    }
-  });
-});
-
+// Note: You mentioned that you removed the duplicate routes for '/', '/dashboard', and '/test' since they are already in homeRoutes.js. Ensure there are no other duplicate routes in other files.

@@ -1,8 +1,7 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
-
-// Middleware Ensure the user is logged in to access the dashboard
+const { Post, User } = require('../models');
 const withAuth = require('../../utils/auth');
+
 
 // GET route to display the user's dashboard with their posts
 router.get('/dashboard', withAuth, async (req, res) => {

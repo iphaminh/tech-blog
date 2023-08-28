@@ -1,10 +1,14 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User } = require('../models');
+
+// ... [rest of the code remains unchanged]
 
 // Route for the homepage to display all posts
 router.get('/', async (req, res) => {
     try {
-        const postData = await Post.findAll();
+        const postData = await Post.findAll({
+            include: [{ model: User, attributes: ['username'] }]
+        });
         res.render('homepage', { posts: postData });
     } catch (err) {
         res.status(500).json(err);
