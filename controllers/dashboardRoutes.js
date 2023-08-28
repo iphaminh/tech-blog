@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Post, User } = require('../models');
-const withAuth = require('../../utils/auth');
+const withAuth = require('../utils/auth');
 
 
 // GET route to display the user's dashboard with their posts
