@@ -4,16 +4,20 @@ const { Post, User } = require('../models');
 // ... [rest of the code remains unchanged]
 
 // Route for the homepage to display all posts
+// Route for the homepage to display all posts
 router.get('/', async (req, res) => {
     try {
+        console.log("Fetching posts for homepage..."); // <-- Add this line
         const postData = await Post.findAll({
             include: [{ model: User, attributes: ['username'] }]
         });
+        console.log(postData); // <-- Add this line to log the fetched data
         res.render('homepage', { posts: postData });
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
 
 // Route to view a single post based on its ID
 router.get('/post/:id', async (req, res) => {
@@ -33,5 +37,10 @@ router.get('/post/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+router.get('/test', (req, res) => {
+    res.send('Test route works!');
+});
+
 
 module.exports = router;

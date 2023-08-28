@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Set up Handlebars as the templating engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -62,4 +62,4 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
 });
 
-// Note: You mentioned that you removed the duplicate routes for '/', '/dashboard', and '/test' since they are already in homeRoutes.js. Ensure there are no other duplicate routes in other files.
+
