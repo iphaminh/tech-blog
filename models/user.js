@@ -2,6 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
+
 // Define the User model
 class User extends Model {
   // Method to check password validity
@@ -46,6 +47,7 @@ User.init(
         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
         return updatedUserData;
       },
+
     },
     sequelize,
     timestamps: false, //Without timestamps: false, Sequelize will automatically add createdAt and updatedAt columns to your table.
@@ -55,17 +57,6 @@ User.init(
   }
 );
 
-// Define the relationship between User and Post
-User.hasMany(Post, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-  });
-  
-  // Define the relationship between User and Comment
-  User.hasMany(Comment, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-  });
   
 
 module.exports = User;
