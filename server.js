@@ -62,4 +62,22 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
 });
 
+app.get('/', async (req, res) => {
+  try {
+      // Fetch posts from the database
+      const postData = await Post.findAll();
+      const posts = postData.map(post => post.get({ plain: true }));
+
+      // Render the homepage template with the posts data
+      res.render('home', { posts });
+  } catch (err) {
+      res.status(500).json(err);
+  }
+});
+
+app.get('/', (req, res) => {
+  const posts = [{title: "Test Post", content: "This is a test post."}];
+  res.render('home', { posts });
+});
+
 
