@@ -1,29 +1,32 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-// Define the Post model
-class Post extends Model {}
+class Project extends Model {}
 
-Post.init(
+Project.init(
   {
-    // Define an ID column
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    // Define a title column for the blog post
-    title: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // Define the content of the blog post
-    content: {
-      type: DataTypes.TEXT,
+    description: {
+      type: DataTypes.STRING,
+    },
+    date_created: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    needed_funding: {
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
-    // Define a foreign key for the user who created the post
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -34,12 +37,11 @@ Post.init(
   },
   {
     sequelize,
-    timestamps: true, // We want timestamps for posts
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'post',
+    modelName: 'project',
   }
 );
 
-
-module.exports = Post;
+module.exports = Project;
