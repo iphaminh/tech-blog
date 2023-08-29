@@ -1,6 +1,3 @@
-// Load environment variables
-require('dotenv').config();
-
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -17,10 +14,9 @@ const PORT = process.env.PORT || 3001;
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
-// Session configuration
 const sess = {
-  secret: 'your secret here', // This should be in an environment variable for security
-  cookie:  {
+  secret: 'Super secret secret',
+  cookie: {
     maxAge: 300000,
     httpOnly: true,
     secure: false,
@@ -33,11 +29,10 @@ const sess = {
   })
 };
 
-
 app.use(session(sess));
 
 // Inform Express.js on which template engine to use
-app.engine('handlebars', hbs.engine);  // Make sure this line comes after `hbs` is defined
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
@@ -49,3 +44,4 @@ app.use(routes);
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
+
