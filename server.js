@@ -46,44 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-// Import the routes
-// const homeRoutes = require('./controllers/homeRoutes');
-// const dashboardRoutes = require('./controllers/dashboardRoutes');
-// // ... any other routes you might have
-
-// Use the routes
-// app.use('/', homeRoutes);
-// app.use('/dashboard', dashboardRoutes);
-// ... any other app.use() statements for other routes
-
-// Authenticate with the database
-sequelize.authenticate()
-  .then(() => {
-    console.log('Database connected successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-// Start the server and sync the models with the database
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
-});
-
-app.get('/', async (req, res) => {
-  try {
-      // Fetch posts from the database
-      const postData = await Post.findAll();
-      const posts = postData.map(post => post.get({ plain: true }));
-
-      // Render the homepage template with the posts data
-      res.render('home', { posts });
-  } catch (err) {
-      res.status(500).json(err);
-  }
-});
-
-app.get('/', (req, res) => {
-  const posts = [{title: "Test Post", content: "This is a test post."}];
-  res.render('home', { posts });
+  app.listen(PORT, () => console.log('Now listening'));
 });
