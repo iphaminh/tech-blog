@@ -1,3 +1,6 @@
+// Load environment variables
+require('dotenv').config();
+
 // Import necessary modules
 const express = require('express');
 const path = require('path');
@@ -26,7 +29,7 @@ app.use(express.static('public'));
 
 // Session configuration
 const sess = {
-  secret: 'your secret here', // This should be in an environment variable for security
+  secret: process.env.SESSION_SECRET, // Loaded from environment variable
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -79,5 +82,3 @@ app.get('/', (req, res) => {
   const posts = [{title: "Test Post", content: "This is a test post."}];
   res.render('home', { posts });
 });
-
-
