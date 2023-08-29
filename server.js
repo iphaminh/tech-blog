@@ -39,6 +39,11 @@ app.use(session(sess));
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);  // Make sure this line comes after `hbs` is defined
 app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Import the routes
 // const homeRoutes = require('./controllers/homeRoutes');
 // const dashboardRoutes = require('./controllers/dashboardRoutes');
