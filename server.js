@@ -29,7 +29,7 @@ app.use(express.static('public'));
 
 // Session configuration
 const sess = {
-  secret: process.env.SESSION_SECRET, // Loaded from environment variable
+  secret: 'your secret here', // This should be in an environment variable for security
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -37,6 +37,7 @@ const sess = {
     db: sequelize
   })
 };
+
 
 // Use the session middleware
 app.use(session(sess));
