@@ -44,6 +44,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(routes);
+
 // Import the routes
 // const homeRoutes = require('./controllers/homeRoutes');
 // const dashboardRoutes = require('./controllers/dashboardRoutes');
