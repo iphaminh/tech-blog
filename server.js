@@ -1,36 +1,31 @@
 // Load environment variables
 require('dotenv').config();
 
-// Import necessary modules
-const express = require('express');
 const path = require('path');
-const { sequelize } = require('./models');  // Only import sequelize from models
-const exphbs = require('express-handlebars').engine;
-const session = require('express-session'); // For session management
-const SequelizeStore = require('connect-session-sequelize')(session.Store); // For storing sessions in the database
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
+const helpers = require('./utils/helpers');
 
-// Initialize the Express app
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 const app = express();
-
-// Define the PORT, either from environment variables or default to 3001
 const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars as the templating engine
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
-
-// Middleware to parse JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Middleware to serve static files from the 'public' directory
-app.use(express.static('public'));
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
 
 // Session configuration
 const sess = {
   secret: 'your secret here', // This should be in an environment variable for security
-  cookie: {},
+  cookie:  {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -39,17 +34,19 @@ const sess = {
 };
 
 
-// Use the session middleware
 app.use(session(sess));
 
+// Inform Express.js on which template engine to use
+app.engine('handlebars', hbs.engine);  // Make sure this line comes after `hbs` is defined
+app.set('view engine', 'handlebars');
 // Import the routes
-const homeRoutes = require('./controllers/homeRoutes');
-const dashboardRoutes = require('./controllers/dashboardRoutes');
-// ... any other routes you might have
+// const homeRoutes = require('./controllers/homeRoutes');
+// const dashboardRoutes = require('./controllers/dashboardRoutes');
+// // ... any other routes you might have
 
 // Use the routes
-app.use('/', homeRoutes);
-app.use('/dashboard', dashboardRoutes);
+// app.use('/', homeRoutes);
+// app.use('/dashboard', dashboardRoutes);
 // ... any other app.use() statements for other routes
 
 // Authenticate with the database
