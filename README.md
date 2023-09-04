@@ -55,4 +55,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Screenshots
 
-(Include some screenshots of your application here)
+<img src="./public/img/1.png" alt="Screenshot Description" width="400"/>
+<img src="./public/img/2.png" alt="Screenshot Description" width="400"/>
+<img src="./public/img/3.png" alt="Screenshot Description" width="400"/>
+
+
+
