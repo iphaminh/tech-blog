@@ -20,7 +20,9 @@ router.get('/', async (req, res) => {
     // Pass serialized data and session flag into template
     res.render('homepage', { 
       projects, 
-      logged_in: req.session.logged_in 
+      logged_in: req.session.logged_in,
+      is_main_page: true,  // Existing line for modifying the BG image
+      is_homepage: true,  // New line to indicate this is the homepage
     });
   } catch (err) {
     res.status(500).json(err);
